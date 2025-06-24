@@ -27,8 +27,9 @@ python -m pip install -r requirements.txt
 Set the following environment variables:
 
 ```bash
-export VIDEOSDK_AUTH_TOKEN="your_videosdk_token"
-export GOOGLE_API_KEY="your_google_api_key"
+VIDEOSDK_AUTH_TOKEN="your_videosdk_token"
+GOOGLE_API_KEY="your_google_api_key"
+ZAPIER_MCP_SERVER="your_mcp_server_url"
 ```
 
 Get your VideoSDK token at: https://app.videosdk.live
