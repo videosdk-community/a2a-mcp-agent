@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Meeting Scheduler with A2A Communication
+Travel Booking with A2A Communication
 
-This application provides a complete meeting scheduling system with:
+This application provides a complete travel booking system with:
 - Voice-enabled personal assistant
-- Meeting scheduling coordination
+- Travel booking coordination
 - Google Calendar integration via MCP
 - Email notifications via MCP
 
@@ -48,9 +48,9 @@ async def main():
     
     try:
         # Create meeting room
-        print("🏗️  Creating VideoSDK meeting room...")
+        print("🏗️  Creating VideoSDK room...")
         meeting_id = await create_videosdk_meeting()
-        print(f"📅 Meeting room created: {meeting_id}")
+        print(f"📅 Room created: {meeting_id}")
         
         print("\n🤖 Starting travel booking agents...")
         print("📋 System will coordinate:")
@@ -75,9 +75,9 @@ async def main():
             print("🧹 Cleaning up resources...")
             success = await cleanup_session(meeting_id)
             if success:
-                print(f"✅ Successfully cleaned up meeting {meeting_id}")
+                print(f"✅ Successfully cleaned up room {meeting_id}")
             else:
-                print(f"⚠️  Meeting {meeting_id} was already cleaned up")
+                print(f"⚠️  Room {meeting_id} was already cleaned up")
         
         print("👋 Travel booking system shutdown complete")
 
