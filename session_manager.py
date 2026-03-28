@@ -1,4 +1,4 @@
-from videosdk.agents import AgentSession, RealTimePipeline
+from videosdk.agents import AgentSession, Pipeline
 from videosdk.plugins.google import GeminiRealtime, GeminiLiveConfig
 from google.genai.types import Modality
 from typing import Dict, Any, Optional
@@ -12,39 +12,39 @@ from agents.hotel_agent import HotelAgent
 from agents.email_agent import EmailAgent
 
 
-def create_main_pipeline() -> RealTimePipeline:
+def create_main_pipeline() -> Pipeline:
     """Create pipeline for main voice agent (audio-enabled)"""
     google_api_key = os.getenv("GOOGLE_API_KEY")
     if not google_api_key:
         raise ValueError("GOOGLE_API_KEY environment variable is required for Gemini integration")
     
     model = GeminiRealtime(
-        model="gemini-2.0-flash-exp",
+        model=""gemini-3.1-flash-live-preview"-flash-exp",
         api_key=google_api_key,
         config=GeminiLiveConfig(
             voice="Aoede",
             response_modalities=[Modality.AUDIO]
         )
     )
-    return RealTimePipeline(model=model)
+    return Pipeline(llm=model)
 
-def create_specialist_pipeline() -> RealTimePipeline:
+def create_specialist_pipeline() -> Pipeline:
     """Create pipeline for specialist agents (text-only)"""
     google_api_key = os.getenv("GOOGLE_API_KEY")
     if not google_api_key:
         raise ValueError("GOOGLE_API_KEY environment variable is required for Gemini integration")
     
     model = GeminiRealtime(
-        model="gemini-2.0-flash-exp",
+        model=""gemini-3.1-flash-live-preview"-flash-exp",
         api_key=google_api_key,
         config=GeminiLiveConfig(
             response_modalities=[Modality.TEXT]
         )
     )
-    return RealTimePipeline(model=model)
+    return Pipeline(llm=model)
 
 
-def create_session(agent: Any, pipeline: RealTimePipeline, context: Dict[str, Any]) -> AgentSession:
+def create_session(agent: Any, pipeline: Pipeline, context: Dict[str, Any]) -> AgentSession:
     """Create agent session with pipeline and context."""
     return AgentSession(agent=agent, pipeline=pipeline, context=context)
 
@@ -86,7 +86,7 @@ async def start_travel_agents_for_room(meeting_id: str):
         travel_agent = TravelAgent()
         travel_pipeline = create_main_pipeline()
         travel_session = create_session(travel_agent, travel_pipeline, {
-            "meetingId": meeting_id,
+            "roomId": meeting_id,
             "name": "Travel Agent",
             "join_meeting": True,
             "playground": True
